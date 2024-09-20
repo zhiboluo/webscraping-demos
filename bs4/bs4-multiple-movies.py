@@ -37,7 +37,7 @@ for link in links:
     title = box.find('h1').get_text()
     title = ''.join(title.split('/'))
     transcript = box.find('div', class_='full-script').get_text(strip=True, separator=' ')
-
+    break
     # Exporting data in a text file with the "title" name
-    with open(f'{title}.txt', 'w') as file:
-        file.write(transcript)
+#    with open(f'{title}.txt', 'w') as file:
+#        file.write(transcript)

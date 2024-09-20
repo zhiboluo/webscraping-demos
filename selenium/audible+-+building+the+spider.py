@@ -1,17 +1,37 @@
 from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from bs4 import BeautifulSoup
 import pandas as pd
+import time
+from selenium.webdriver.common.by import By
+
+
+# Path to the chromedriver executable
+chromedriver_path = '/Users/zhiboluo/Documents/WebScraping_python/chromedriver-mac-x64/chromedriver'
+
+# Set up Chrome options (if needed)
+chrome_options = Options()
+# Example: chrome_options.add_argument("--headless")  # Uncomment if you want to run headless
+
+# Set up the Service object with the path to the chromedriver executable
+service = Service(chromedriver_path)
+
+# Initialize the Chrome driver with the Service and Options
+driver = webdriver.Chrome(service=service, options=chrome_options)
 
 web = "https://www.audible.com/search"
-path = '/Users/frankandrade/Downloads/chromedriver'
-driver = webdriver.Chrome(path)
+
 driver.get(web)
 driver.maximize_window()
 
+
+
 # Locating the box that contains all the audiobooks listed in the page
-container = driver.find_element_by_class_name('adbl-impression-container ')
+container = driver.find_element(By.CLASS_NAME, 'adbl-impression-container ')
 
 # Getting all the audiobooks listed (the "/" gives immediate child nodes)
-products = container.find_elements_by_xpath('.//li[contains(@class, "productListItem")]')
+products = container.find_elements(By.XPATH, './/li[contains(@class, "productListItem")]')
 # products = container.find_elements_by_xpath('./li')
 
 # Initializing storage
